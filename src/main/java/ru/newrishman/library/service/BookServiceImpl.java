@@ -29,7 +29,7 @@ public class BookServiceImpl implements BookService {
     @Override
     @Transactional
     public void updateBook(Book book) {
-        Book update = bookRepository.findById(book.getId()).orElse(new Book());;
+        Book update = bookRepository.findById(book.getId()).orElse(new Book());
         update.setTitle(book.getTitle());
         bookRepository.save(update);
     }

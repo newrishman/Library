@@ -74,5 +74,4 @@ public class PersistenceJPAConfig {
 
         return properties;
     }
-
 }

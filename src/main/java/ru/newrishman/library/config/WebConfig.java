@@ -10,25 +10,11 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
-import ru.newrishman.library.service.AuthorService;
-import ru.newrishman.library.service.AuthorServiceImpl;
-import ru.newrishman.library.service.BookService;
-import ru.newrishman.library.service.BookServiceImpl;
 
 @Configuration
 @EnableWebMvc
 @ComponentScan(value = "ru.newrishman.library")
 public class WebConfig implements WebMvcConfigurer {
-
-   /* @Bean
-    public AuthorService authorService() {
-        return new AuthorServiceImpl();
-    }
-
-    @Bean
-    public BookService bookService() {
-        return new BookServiceImpl();
-    }*/
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {

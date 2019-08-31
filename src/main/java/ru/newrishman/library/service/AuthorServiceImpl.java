@@ -29,7 +29,7 @@ public class AuthorServiceImpl implements AuthorService {
     @Override
     @Transactional
     public void updateAuthor(Author author) {
-        Author update = authorRepository.findById(author.getId()).orElse(new Author());;
+        Author update = authorRepository.findById(author.getId()).orElse(new Author());
         update.setName(author.getName());
         authorRepository.save(update);
     }
