@@ -17,7 +17,7 @@ public class Book {
     private String title;
 
     @Lob
-    @Column(name = "Book_File")
+    @Column(name = "book_file")
     private byte[] bytes;
 
     public Book(String title, byte[] bytes) {
