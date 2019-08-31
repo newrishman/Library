@@ -13,7 +13,8 @@ import java.util.List;
 public class AuthorServiceImpl implements AuthorService {
 
     private AuthorRepository authorRepository;
-@Autowired
+
+    @Autowired
     public void setRepository(AuthorRepository repository) {
         this.authorRepository = repository;
     }
