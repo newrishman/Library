@@ -19,7 +19,7 @@ import ru.newrishman.library.service.BookServiceImpl;
 @ComponentScan(value = "ru.newrishman.library")
 public class WebConfig implements WebMvcConfigurer {
 
-    @Bean
+   /* @Bean
     public AuthorService authorService() {
         return new AuthorServiceImpl();
     }
@@ -27,7 +27,7 @@ public class WebConfig implements WebMvcConfigurer {
     @Bean
     public BookService bookService() {
         return new BookServiceImpl();
-    }
+    }*/
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {

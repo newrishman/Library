@@ -1,5 +1,6 @@
 package ru.newrishman.library.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.newrishman.library.domain.Author;
@@ -12,7 +13,7 @@ import java.util.List;
 public class AuthorServiceImpl implements AuthorService {
 
     private AuthorRepository authorRepository;
-
+@Autowired
     public void setRepository(AuthorRepository repository) {
         this.authorRepository = repository;
     }

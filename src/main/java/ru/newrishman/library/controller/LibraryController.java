@@ -23,12 +23,13 @@ public class LibraryController {
     private BookService bookService;
 
     @Autowired
-    @Qualifier("authorService")
+    //@Qualifier("authorService")
     public void setAuthorService(AuthorService authorService) {
         this.authorService = authorService;
     }
 
     @Autowired
+    //@Qualifier("bookService")
     public void setBookService(BookService bookService) {
         this.bookService = bookService;
     }
