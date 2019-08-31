@@ -79,21 +79,28 @@ public class LibraryController {
         return "redirect:/books";
     }
 
-    @RequestMapping(value = "/books/", method = RequestMethod.POST)
+    @RequestMapping(value = "/books/upload", method = RequestMethod.POST)
     @Transactional
     public String saveBook(@RequestParam("name") String authorName,
+                           @RequestParam("title") String title,
                            @RequestParam("file") MultipartFile file) throws IOException {
 
-        byte[] bytes = file.getBytes();
-
-        Book book = new Book(file.getOriginalFilename(), bytes);
         Set<Book> books = new HashSet<>();
-        books.add(book);
 
+        //проверяем наличие книги в БД
+        Book book;
+        Book searchB = bookService.findBookByTitle(title);
+        if (searchB == null) {
+            book = new Book(title, file.getBytes());
+            books.add(book);
+        } else {
+            book = searchB;
+            books.add(book);
+        }
+        //проверяем наличие автора в БД
         Author author;
-
-        Author search = authorService.findAuthorByName(authorName);
-        if (search == null) {
+        Author searchA = authorService.findAuthorByName(authorName);
+        if (searchA == null) {
             author = new Author(authorName);
 
             Set<Author> authors = new HashSet<>();
@@ -102,9 +109,10 @@ public class LibraryController {
             author.setBooks(books);
             book.setAuthors(authors);
         } else {
-            author = search;
+            author = searchA;
             author.getBooks().add(book);
         }
+
         bookService.addBook(book);
         authorService.addAuthor(author);
 
@@ -114,7 +122,9 @@ public class LibraryController {
     @RequestMapping(value = "/authors/add", method = RequestMethod.POST)
     public String addAuthor(@ModelAttribute("author") Author author) {
         if (author.getId() == 0) {
-            authorService.addAuthor(author);
+            if (authorService.findAuthorByName(author.getName()) == null) {
+                authorService.addAuthor(author);
+            }
         } else {
             authorService.updateAuthor(author);
         }
