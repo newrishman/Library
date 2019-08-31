@@ -29,7 +29,7 @@ public class AuthorServiceImpl implements AuthorService {
     @Override
     @Transactional
     public void updateAuthor(Author author) {
-        Author update = authorRepository.getOne(author.getId());
+        Author update = authorRepository.findById(author.getId()).orElse(new Author());;
         update.setName(author.getName());
         authorRepository.save(update);
     }
@@ -44,7 +44,7 @@ public class AuthorServiceImpl implements AuthorService {
     @Override
     @Transactional
     public Author getAuthorById(long id) {
-        return authorRepository.getOne(id);
+        return authorRepository.findById(id).orElse(new Author());
     }
 
     @Override

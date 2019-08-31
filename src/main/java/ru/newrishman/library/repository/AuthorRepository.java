@@ -11,9 +11,12 @@ import ru.newrishman.library.domain.Author;
 import java.util.List;
 
 @Repository
+@Transactional
 public interface AuthorRepository extends JpaRepository<Author, Long> {
+    @Transactional
     List<Author> findByBooks_titleLikeIgnoreCase(String book);
 
+    @Transactional
     Author findByNameIgnoreCase(String Author);
 
     @Modifying

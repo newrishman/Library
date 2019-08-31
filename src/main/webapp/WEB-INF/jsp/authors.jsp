@@ -71,14 +71,14 @@
                 <td>${author.name}</td>
                 <td><a href="<c:url value='/authors/edit/${author.id}'/>">Изменить</a></td>
                 <td><a href="<c:url value='/authors/delete/${author.id}'/>">Удалить</a></td>
-                <td><a href="<c:url value='/books/${author.id}'/>">Push me, and then just touch me </a></td>
+                <td><a href="<c:url value='/books/${author.id}'/>"> Поиск </a></td>
             </tr>
         </c:forEach>
     </table>
 </c:if>
 
 
-<h1>Добавить автора</h1>
+<h2>Добавить автора</h2>
 
 <c:url var="addAuthor" value="/authors/add"/>
 
@@ -114,11 +114,11 @@
             <td colspan="2">
                 <c:if test="${!empty author.name}">
                     <input type="submit"
-                           value="<spring:message text="Изменить авторв"/>"/>
+                           value="<spring:message text="Изменить"/>"/>
                 </c:if>
                 <c:if test="${empty author.name}">
                     <input type="submit"
-                           value="<spring:message text="Добавить автора"/>"/>
+                           value="<spring:message text="Добавить"/>"/>
                 </c:if>
             </td>
         </tr>

@@ -29,7 +29,7 @@ public class BookServiceImpl implements BookService {
     @Override
     @Transactional
     public void updateBook(Book book) {
-        Book update = bookRepository.getOne(book.getId());
+        Book update = bookRepository.findById(book.getId()).orElse(new Book());;
         update.setTitle(book.getTitle());
         bookRepository.save(update);
     }
@@ -44,7 +44,7 @@ public class BookServiceImpl implements BookService {
     @Override
     @Transactional
     public Book getBookById(long id) {
-        return bookRepository.getOne(id);
+        return bookRepository.findById(id).orElse(new Book());
     }
 
     @Override

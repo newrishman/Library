@@ -1,8 +1,8 @@
 package ru.newrishman.library.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -23,13 +23,11 @@ public class LibraryController {
     private BookService bookService;
 
     @Autowired
-    //@Qualifier("authorService")
     public void setAuthorService(AuthorService authorService) {
         this.authorService = authorService;
     }
 
     @Autowired
-    //@Qualifier("bookService")
     public void setBookService(BookService bookService) {
         this.bookService = bookService;
     }
@@ -81,9 +79,11 @@ public class LibraryController {
         return "redirect:/books";
     }
 
-    @RequestMapping(value = "/books", method = RequestMethod.POST)
+    @RequestMapping(value = "/books/", method = RequestMethod.POST)
+    @Transactional
     public String saveBook(@RequestParam("name") String authorName,
                            @RequestParam("file") MultipartFile file) throws IOException {
+
         byte[] bytes = file.getBytes();
 
         Book book = new Book(file.getOriginalFilename(), bytes);
@@ -91,6 +91,7 @@ public class LibraryController {
         books.add(book);
 
         Author author;
+
         Author search = authorService.findAuthorByName(authorName);
         if (search == null) {
             author = new Author(authorName);

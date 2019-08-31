@@ -56,6 +56,10 @@
 
 <h1>Список книг</h1>
 
+<c:if test="${empty listBooks}">
+    <h2 style="color:#ff0013">Книги данного автора не найдены</h2>
+</c:if>
+
 <c:if test="${!empty listBooks}">
     <table class="tg">
         <tr>
@@ -63,6 +67,7 @@
             <th width="160">Книга</th>
             <th width="60">Изменить</th>
             <th width="60">Удалить</th>
+            <th width="120">Просмотреть автора</th>
         </tr>
         <c:forEach items="${listBooks}" var="book">
             <tr>
@@ -70,32 +75,34 @@
                 <td>${book.title}</td>
                 <td><a href="<c:url value='/books/edit/${book.id}'/>">Изменить</a></td>
                 <td><a href="<c:url value='/books/delete/${book.id}'/>">Удалить</a></td>
+                <td><a href="<c:url value='/authors/${book.id}'/>"> Поиск </a></td>
             </tr>
         </c:forEach>
     </table>
 </c:if>
 
 
-<h1>Добавить книгу</h1>
-
 <c:url var="addBook" value="/books/add"/>
 
 <%--@elvariable id="book" type="ru.newrishman.library.domain.Book"--%>
 <form:form action="${addBook}" modelAttribute="book">
+
+
     <table>
         <c:if test="${!empty book.title}">
-            <tr>
-                <td>
-                    <form:label path="id">
-                        <spring:message text="ID"/>
-                    </form:label>
-                </td>
-                <td>
-                    <form:input path="id" readonly="true" size="8" disabled="true"/>
-                    <form:hidden path="id"/>
-                </td>
-            </tr>
-        </c:if>
+        <h3>Переименовать книгу</h3>
+        <tr>
+            <td>
+                <form:label path="id">
+                    <spring:message text="ID"/>
+                </form:label>
+            </td>
+            <td>
+                <form:input path="id" readonly="true" size="8" disabled="true"/>
+                <form:hidden path="id"/>
+            </td>
+        </tr>
+
         <tr>
             <td>
                 <form:label path="title">
@@ -105,22 +112,22 @@
             <td>
                 <form:input path="title"/>
             </td>
-        </tr>
-
-
-        <tr>
             <td colspan="2">
-                <c:if test="${!empty book.title}">
-                    <input type="submit"
-                           value="<spring:message text="Изменить книгу"/>"/>
-                </c:if>
-                <c:if test="${empty book.title}">
-                    <input type="submit"
-                           value="<spring:message text="Добавить книгу"/>"/>
-                </c:if>
+                <input type="submit"
+                       value="<spring:message text="Изменить"/>"/>
             </td>
+            </c:if>
+
         </tr>
     </table>
 </form:form>
+
+
+<form method="POST" action="books/" enctype="multipart/form-data">
+    <h2>Сохранить книгу</h2>
+    Автор: <input type="text" name="name"><br/>
+    Книга: <input type="file" name="file"><br/> <br/>
+    <input type="submit" value="Сохранить">
+</form>
 </body>
 </html>
