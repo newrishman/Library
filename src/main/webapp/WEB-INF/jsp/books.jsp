@@ -67,6 +67,7 @@
             <th width="160">Книга</th>
             <th width="60">Изменить</th>
             <th width="60">Удалить</th>
+            <th width="60">Скачать</th>
             <th width="120">Просмотреть автора</th>
         </tr>
         <c:forEach items="${listBooks}" var="book">
@@ -75,6 +76,7 @@
                 <td>${book.title}</td>
                 <td><a href="<c:url value='/books/edit/${book.id}'/>">Изменить</a></td>
                 <td><a href="<c:url value='/books/delete/${book.id}'/>">Удалить</a></td>
+                <td><a href="<c:url value='/download/${book.id}'/>"> Скачать </a></td>
                 <td><a href="<c:url value='/authors/${book.id}'/>"> Поиск </a></td>
             </tr>
         </c:forEach>

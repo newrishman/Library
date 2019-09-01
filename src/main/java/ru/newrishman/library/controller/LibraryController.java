@@ -11,6 +11,8 @@ import ru.newrishman.library.domain.Book;
 import ru.newrishman.library.service.AuthorService;
 import ru.newrishman.library.service.BookService;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
@@ -85,18 +87,17 @@ public class LibraryController {
                            @RequestParam("title") String title,
                            @RequestParam("file") MultipartFile file) throws IOException {
 
-        Set<Book> books = new HashSet<>();
-
         //проверяем наличие книги в БД
         Book book;
         Book searchB = bookService.findBookByTitle(title);
         if (searchB == null) {
             book = new Book(title, file.getBytes());
-            books.add(book);
         } else {
             book = searchB;
-            books.add(book);
         }
+        Set<Book> books = new HashSet<>();
+        books.add(book);
+
         //проверяем наличие автора в БД
         Author author;
         Author searchA = authorService.findAuthorByName(authorName);
@@ -155,5 +156,18 @@ public class LibraryController {
         model.addAttribute("author", authorService.getAuthorById(id));
         model.addAttribute("listAuthors", authorService.getAllAuthors());
         return "authors";
+    }
+
+    @GetMapping("/download/{id}")
+    public void downloadPDFResource(@PathVariable("id") long id, HttpServletResponse response) throws IOException {
+        Book book = bookService.getBookById(id);
+        response.setContentType("application/txt");
+        response.setHeader("Content-Disposition", "attachment; filename=" + book.getTitle() + ".txt");
+
+        BufferedOutputStream outStream = new BufferedOutputStream(response.getOutputStream());
+
+        byte[] buffer = book.getBytes();
+        outStream.write(buffer);
+        outStream.flush();
     }
 }

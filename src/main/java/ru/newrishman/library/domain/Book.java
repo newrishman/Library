@@ -20,6 +20,10 @@ public class Book {
     @Column(name = "book_file")
     private byte[] bytes;
 
+    public byte[] getBytes() {
+        return bytes;
+    }
+
     public Book(String title, byte[] bytes) {
         this.title = title;
         this.bytes = bytes;
