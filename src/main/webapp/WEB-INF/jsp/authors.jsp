@@ -26,7 +26,7 @@
             word-break: normal;
             border-color: #ccc;
             color: #333;
-            background-color: #fff;
+            background-color: #d8fffc;
         }
 
         .tg th {
