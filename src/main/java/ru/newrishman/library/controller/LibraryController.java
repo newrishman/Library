@@ -159,7 +159,7 @@ public class LibraryController {
     }
 
     @GetMapping("/download/{id}")
-    public void downloadPDFResource(@PathVariable("id") long id, HttpServletResponse response) throws IOException {
+    public void downloadText(@PathVariable("id") long id, HttpServletResponse response) throws IOException {
         Book book = bookService.getBookById(id);
         response.setContentType("application/txt");
         response.setHeader("Content-Disposition", "attachment; filename=" + book.getTitle() + ".txt");
